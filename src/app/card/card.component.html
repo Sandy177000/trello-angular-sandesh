@@ -1,0 +1,26 @@
+<div class="modal" *ngIf="trelloservice.cardModal">
+  <div class="flex flex-col p-10 bg-black rounded-lg gap-3 relative">
+    <button class="absolute top-5 right-5" (click)="closeModal()">x</button>
+    <p>{{ trelloservice.currentCard.name }}</p>
+    <form
+      action=""
+      class="h-[50px] items-center gap-2 p-1 flex w-full"
+      (submit)="handleCreateChecklist($event)"
+    >
+      <input
+        type="text"
+        class="h-full rounded-lg bg-transparent border-[#333] border outline-none p-1 flex-1 flex"
+        name="checklistName"
+        id="checklistName"
+        placeholder="Enter Checklist..."
+      />
+      <button type="submit" class="p-2 bg-[#333] h-full w-[40px] rounded-lg">
+        +
+      </button>
+    </form>
+
+    <app-checklist [checklists]="trelloservice.checklists"></app-checklist>
+  </div>
+</div>
+
+<app-loader [isLoading]="isLoading"></app-loader>

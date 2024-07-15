@@ -1,0 +1,33 @@
+<form
+  action=""
+  class="h-[50px] items-center gap-2 p-1 flex w-full"
+  (submit)="handleCreateCard($event)"
+>
+  <input
+    type="text"
+    class="h-full rounded-lg bg-transparent border-black border outline-none p-1"
+    name="cardName"
+    id="cardName"
+    placeholder="Enter Card..."
+  />
+  <button type="submit" class="p-2 bg-[#333] h-full w-[40px] rounded-lg">
+    +
+  </button>
+</form>
+
+<div class="flex w-full flex-col gap-3 p-1 max-h-[250px] overflow-auto">
+  <div
+    class="flex w-full p-3 bg-[#333] rounded-lg hover:bg-[#1111115f] cursor-pointer"
+    *ngFor="let card of cards"
+    (click)="handleCardModal(card)"
+  >
+    <div class="flex w-full justify-between">
+      <p>{{ card.name }}</p>
+      <button (click)="handleDeleteCard($event,card)">
+            <i class="fas fa-trash hover:text-red-500"></i>
+
+      </button>
+    </div>
+  </div>
+</div>
+<app-loader [isLoading]="isLoading"></app-loader>

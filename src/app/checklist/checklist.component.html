@@ -1,0 +1,16 @@
+<div class="flex w-full flex-col gap-3 overflow-auto h-[500px]">
+  <div
+    class="flex flex-col rounded-lg bg-[#333] p-3 justify-between"
+    *ngFor="let checklist of checklists"
+  >
+    <div class="flex w-full justify-between bg-[#222] p-3 rounded-lg">
+      <p>{{ checklist.name }}</p>
+      <button (click)="handleDeleteCheckList(checklist)" class="w-fit">
+        <i class="fas fa-trash hover:text-red-500"></i>
+      </button>
+    </div>
+    <app-checklistitems [checklistId]="checklist.id"></app-checklistitems>
+  </div>
+</div>
+
+<app-loader [isLoading]="isLoading"></app-loader>

@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+
+<div class="flex w-full h-full justify-center">
+  <div class="flex w-[80vw] mt-6 gap-4 flex-col">
+    <div class="flex w-full justify-between h-fit items-center">
+      <div class="flex gap-5 items-center">
+        <div
+          class="flex p-3 rounded-full w-[50px] h-[50px] items-center justify-center border border-[#333] cursor-pointer"
+          (click)="handleGoBack()"
+        >
+          <-
+        </div>
+        <p class="text-white font-bold text-[22px]">{{ board.name }}</p>
+      </div>
+      <button class="createListBtn" (click)="handleModal()">CREATE LIST</button>
+    </div>
+
+    <div
+      class="flex w-full h-[500px] border border-[#363636] rounded-lg gap-4 p-5 overflow-auto"
+    >
+      <div
+        class="flex flex-col bg-[#222] p-3 rounded-lg h-fit max-h-[400px] gap-3"
+        *ngFor="let list of lists"
+      >
+        <div class="flex justify-between w-full p-3 h-fit">
+          <p>{{ list.name }}</p>
+          <button (click)="handleDeleteList(list)">
+            <i class="fas fa-trash hover:text-red-500"></i>
+          </button>
+        </div>
+        <app-cards [list]="list"></app-cards>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="modal">
+  <div class="flex flex-col p-10 bg-black rounded-lg gap-3 relative">
+    <button class="absolute top-5 right-5" (click)="handleModal()">x</button>
+    <p>Create List</p>
+    <form
+      action=""
+      method="post"
+      class="flex flex-col gap-3"
+      (submit)="handleCreateList($event)"
+    >
+      <input
+        type="text"
+        placeholder="Enter list name..."
+        id="listName"
+        name="listName"
+        class="rounded-md p-3 bg-[#222] outline-none"
+      />
+      <div class="flex bg-black w-full gap-3 o">
+        <button class="bg-[#222] p-3 rounded-lg" type="submit">Create</button>
+        <button (click)="handleModal()" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-card class="modal" *ngIf="trelloservice.cardModal"></app-card>
+
+
+<app-loader [isLoading]="isLoading"></app-loader>

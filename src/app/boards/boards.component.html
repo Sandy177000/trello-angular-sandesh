@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+
+<div class="boards-container">
+  <h2 class="boards-title">Boards</h2>
+
+  <div class="boards-grid" *ngIf="boards.length > 0; else noBoards">
+    <div
+      *ngFor="let board of boards"
+      class="board cursor-pointer"
+      (click)="handleSelectedBoard(board)"
+    >
+      <h3>{{ board.name }}</h3>
+    </div>
+  </div>
+
+  <ng-template #noBoards>
+    <div class="no-boards-message" *ngIf="!isLoading">No Boards available!</div>
+  </ng-template>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="createButton"
+    (click)="handleModal()"
+  >
+    CREATE BOARD
+  </button>
+</div>
+
+<div class="modal" *ngIf="modal">
+  <div class="flex flex-col p-10 bg-black rounded-lg gap-3 relative">
+    <button class="absolute top-5 right-5" (click)="handleModal()">x</button>
+    <p>Create Board</p>
+    <form
+      action=""
+      method="post"
+      class="flex flex-col gap-3"
+      (submit)="handleCreateBoard($event)"
+    >
+      <input
+        type="text"
+        placeholder="Enter board name..."
+        id="boardName"
+        name="boardName"
+        class="rounded-md p-3 bg-[#222] outline-none"
+      />
+      <div class="flex bg-black w-full gap-3 o">
+        <button class="bg-[#222] p-3 rounded-lg" type="submit">Create</button>
+        <button (click)="handleModal()" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<app-loader [isLoading]="isLoading"></app-loader>
